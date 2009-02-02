@@ -41,8 +41,8 @@ mvn package install
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir}/tomcat/webapps/cas-server,%{_sharedstatedir}/{cas-server,tomcat/conf/Catalina/localhost}}
-cp -a . $RPM_BUILD_ROOT%{_datadir}/tomcat/webapps/cas-server
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir}/cas-server,%{_sharedstatedir}/{cas-server,tomcat/conf/Catalina/localhost}}
+cp -a . $RPM_BUILD_ROOT%{_datadir}/cas-server
 ln -sf %{_sysconfdir}/cas-server/web.xml $RPM_BUILD_ROOT%{_datadir}/tomcat/webapps/cas-server/WEB-INF/web.xml
 
 %clean
@@ -55,5 +55,5 @@ rm -rf $RPM_BUILD_ROOT
 # do not make this file writeable by tomcat. We do not want to allow user to
 # undeploy this app via tomcat manager.
 %config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
-%{_datadir}/tomcat/webapps/cas-server
+%{_datadir}/cas-server
 %attr(755,tomcat,tomcat) %dir %{_sharedstatedir}/cas-server
