@@ -6,7 +6,7 @@ Release:	0.1
 License:	MIT License
 Group:		Development/Languages/Java
 Source0:	http://www.ja-sig.org/downloads/cas/%{name}-%{version}-release.tar.gz
-# Source0-md5:	2b7df2a84e12b045c5accc987f94f169
+# Source0-md5:	514b5a09211f71a6421272047c239457
 URL:		http://www.ja-sig.org/products/cas/
 BuildRequires:	jpackage-utils
 BuildRequires:	maven
