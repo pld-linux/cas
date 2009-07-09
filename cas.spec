@@ -1,7 +1,7 @@
 %include	/usr/lib/rpm/macros.java
 Summary:	JA-SIG Central Authentication Service
 Name:		cas-server
-Version:	3.3.1
+Version:	3.3.3
 Release:	0.1
 License:	MIT License
 Group:		Development/Languages/Java
@@ -33,6 +33,7 @@ CAS provides enterprise single sign on service: CAS Downloads
       and others
     - Community documentation and implementation support
     - An extensive community of adopters
+
 %prep
 %setup -q
 
