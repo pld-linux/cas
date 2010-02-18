@@ -1,6 +1,6 @@
 #
 # TODO:
-# - package all modules (modules/*.war)
+# - package all $MODULES
 # - subpackages for modules
 # - fix tomcat path
 %include	/usr/lib/rpm/macros.java
@@ -38,13 +38,21 @@ CAS provides enterprise single sign on service: CAS Downloads
     - Community documentation and implementation support
     - An extensive community of adopters
 
+%package core
+Summary:	JA-SIG CAS Core
+Group:		Development/Languages/Java
+Requires:	%{name}-%{version} = %{release}
+
+%description core
+JA-SIG CAS Core.
+
 %package webapp
 Summary:	JA-SIG CAS Web Application
 Group:		Applications/WWW
 Requires:	%{name}-%{version} = %{release}
 
 %description webapp
-JA-SIG CAS Web Application
+JA-SIG CAS Web Application.
 
 %prep
 %setup -q
@@ -54,8 +62,16 @@ JA-SIG CAS Web Application
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir}/cas-server,%{_sharedstatedir}/{cas-server,tomcat/conf/Catalina/localhost}}
-install modules/%{name}-webapp-%{version}.war $RPM_BUILD_ROOT%{_datadir}/cas-server/cas.war
+
+MODULES="core integration-berkeleydb integration-jboss integration-memcached integration-restlet support-generic support-jdbc support-ldap support-legacy support-openid support-radius support-spnego support-trusted support-x509"
+
+for i in $MODULES; do
+
+        install modules/%{name}-$i-%{version}.jar $RPM_BUILD_ROOT%{_datadir}/cas-server/cas-$i.jar
 #ln -sf %{_sysconfdir}/cas-server/web.xml $RPM_BUILD_ROOT%{_datadir}/tomcat/webapps/cas-server/WEB-INF/web.xml
+done
+
+install modules/%{name}-webapp-%{version}.war $RPM_BUILD_ROOT%{_datadir}/cas-server/cas.war
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,6 +83,11 @@ rm -rf $RPM_BUILD_ROOT
 # do not make this file writeable by tomcat. We do not want to allow user to
 # undeploy this app via tomcat manager.
 #%config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
+
+%files core
+%defattr(644,root,root,755)
+%{_datadir}/cas-server/cas-core.jar
+
 %files webapp
 %defattr(644,root,root,755)
 %{_datadir}/cas-server/cas.war
