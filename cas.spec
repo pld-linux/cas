@@ -1,12 +1,12 @@
 %include	/usr/lib/rpm/macros.java
 Summary:	JA-SIG Central Authentication Service
 Name:		cas-server
-Version:	3.3.3
+Version:	3.3.5
 Release:	0.1
 License:	MIT License
 Group:		Development/Languages/Java
 Source0:	http://www.ja-sig.org/downloads/cas/%{name}-%{version}-release.tar.gz
-# Source0-md5:	514b5a09211f71a6421272047c239457
+# Source0-md5:	c12594a2af98ee2dd11a8c97895d91af
 URL:		http://www.ja-sig.org/products/cas/
 BuildRequires:	jpackage-utils
 BuildRequires:	maven
