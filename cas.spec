@@ -48,15 +48,13 @@ unzip modules/%{name}-webapp-%{version}.war -d webapp
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir},%{_sharedstatedir}/{cas-server,tomcat/conf/Catalina/localhost}}
 
-MODULES="core integration-berkeleydb integration-jboss integration-memcached integration-restlet support-generic support-jdbc support-ldap support-legacy support-openid support-radius support-spnego support-trusted support-x509"
+cp -a webapp $RPM_BUILD_ROOT%{_datadir}/cas-server
+
+MODULES="integration-berkeleydb integration-jboss integration-memcached integration-restlet support-generic support-jdbc support-ldap support-legacy support-openid support-radius support-spnego support-trusted support-x509"
 
 for i in $MODULES; do
-
-        install modules/%{name}-$i-%{version}.jar $RPM_BUILD_ROOT%{_datadir}/cas-server/cas-$i.jar
-#ln -sf %{_sysconfdir}/cas-server/web.xml $RPM_BUILD_ROOT%{_datadir}/tomcat/webapps/cas-server/WEB-INF/web.xml
+  install modules/%{name}-$i-%{version}.jar $RPM_BUILD_ROOT%{_datadir}/cas-server/WEB-INF/lib/%{name}-$i-%{version}.jar
 done
-
-cp -a webapp $RPM_BUILD_ROOT%{_datadir}/cas-server
 
 %clean
 rm -rf $RPM_BUILD_ROOT
