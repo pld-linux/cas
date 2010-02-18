@@ -144,21 +144,31 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir},%{_sharedstated
 
 cp -a webapp $RPM_BUILD_ROOT%{webappdir}
 
-MODULES="integration-berkeleydb integration-jboss integration-memcached integration-restlet support-generic support-jdbc support-ldap support-legacy support-openid support-radius support-spnego support-trusted support-x509"
+MODULES="integration-berkeleydb
+integration-jboss
+integration-memcached
+integration-restlet
+support-generic
+support-jdbc
+support-ldap
+support-legacy
+support-openid
+support-radius
+support-spnego
+support-trusted
+support-x509"
 
 for i in $MODULES; do
   install modules/%{name}-$i-%{version}.jar $RPM_BUILD_ROOT%{libdir}/%{name}-$i-%{version}.jar
 done
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%dir %{_sysconfdir}/cas-server
-#%config(noreplace) %{_sysconfdir}/cas-server/web.xml
-# do not make this file writeable by tomcat. We do not want to allow user to
-# undeploy this app via tomcat manager.
 %config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
 %{_datadir}/cas-server
 %exclude %{libdir}/cas-server-support-spnego-3.3.5.jar
