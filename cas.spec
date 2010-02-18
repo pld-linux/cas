@@ -190,70 +190,70 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) %{_tomcatconfdir}/%{name}.xml
 %{_datadir}/%{name}
-%exclude %{libdir}/%{name}-support-spnego-3.3.5.jar
-%exclude %{libdir}/%{name}-integration-berkeleydb-3.3.5.jar
-%exclude %{libdir}/%{name}-support-x509-3.3.5.jar
-%exclude %{libdir}/%{name}-integration-jboss-3.3.5.jar
-%exclude %{libdir}/%{name}-support-openid-3.3.5.jar
-%exclude %{libdir}/%{name}-support-legacy-3.3.5.jar
-%exclude %{libdir}/%{name}-support-radius-3.3.5.jar
-%exclude %{libdir}/%{name}-integration-memcached-3.3.5.jar
-%exclude %{libdir}/%{name}-integration-restlet-3.3.5.jar
-%exclude %{libdir}/%{name}-support-ldap-3.3.5.jar
-%exclude %{libdir}/%{name}-support-generic-3.3.5.jar
-%exclude %{libdir}/%{name}-support-trusted-3.3.5.jar
-%exclude %{libdir}/%{name}-support-jdbc-3.3.5.jar
+%exclude %{libdir}/%{name}-support-spnego-%{version}.jar
+%exclude %{libdir}/%{name}-integration-berkeleydb-%{version}.jar
+%exclude %{libdir}/%{name}-support-x509-%{version}.jar
+%exclude %{libdir}/%{name}-integration-jboss-%{version}.jar
+%exclude %{libdir}/%{name}-support-openid-%{version}.jar
+%exclude %{libdir}/%{name}-support-legacy-%{version}.jar
+%exclude %{libdir}/%{name}-support-radius-%{version}.jar
+%exclude %{libdir}/%{name}-integration-memcached-%{version}.jar
+%exclude %{libdir}/%{name}-integration-restlet-%{version}.jar
+%exclude %{libdir}/%{name}-support-ldap-%{version}.jar
+%exclude %{libdir}/%{name}-support-generic-%{version}.jar
+%exclude %{libdir}/%{name}-support-trusted-%{version}.jar
+%exclude %{libdir}/%{name}-support-jdbc-%{version}.jar
 %attr(2775,root,servlet) %dir %{_sharedstatedir}/%{name}
 %dir %attr(2770,root,servlet) %{logdir}
 
 %files authenticator-spnego
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-spnego-3.3.5.jar
+%{libdir}/%{name}-support-spnego-%{version}.jar
 
 %files authenticator-x509
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-x509-3.3.5.jar
+%{libdir}/%{name}-support-x509-%{version}.jar
 
 %files authenticator-openid
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-openid-3.3.5.jar
+%{libdir}/%{name}-support-openid-%{version}.jar
 
 %files authenticator-legacy
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-legacy-3.3.5.jar
+%{libdir}/%{name}-support-legacy-%{version}.jar
 
 %files authenticator-radius
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-radius-3.3.5.jar
+%{libdir}/%{name}-support-radius-%{version}.jar
 
 %files authenticator-ldap
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-ldap-3.3.5.jar
+%{libdir}/%{name}-support-ldap-%{version}.jar
 
 %files authenticator-generic
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-generic-3.3.5.jar
+%{libdir}/%{name}-support-generic-%{version}.jar
 
 %files authenticator-trusted
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-trusted-3.3.5.jar
+%{libdir}/%{name}-support-trusted-%{version}.jar
 
 %files authenticator-jdbc
 %defattr(644,root,root,755)
-%{libdir}/%{name}-support-jdbc-3.3.5.jar
+%{libdir}/%{name}-support-jdbc-%{version}.jar
 
 %files integration-berkeleydb
 %defattr(644,root,root,755)
-%{libdir}/%{name}-integration-berkeleydb-3.3.5.jar
+%{libdir}/%{name}-integration-berkeleydb-%{version}.jar
 
 %files integration-jboss
 %defattr(644,root,root,755)
-%{libdir}/%{name}-integration-jboss-3.3.5.jar
+%{libdir}/%{name}-integration-jboss-%{version}.jar
 
 %files integration-memcached
 %defattr(644,root,root,755)
-%{libdir}/%{name}-integration-memcached-3.3.5.jar
+%{libdir}/%{name}-integration-memcached-%{version}.jar
 
 %files integration-restlet
 %defattr(644,root,root,755)
-%{libdir}/%{name}-integration-restlet-3.3.5.jar
+%{libdir}/%{name}-integration-restlet-%{version}.jar
