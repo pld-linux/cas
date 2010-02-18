@@ -9,7 +9,6 @@ Source0:	http://www.ja-sig.org/downloads/cas/%{name}-%{version}-release.tar.gz
 # Source0-md5:	c12594a2af98ee2dd11a8c97895d91af
 Source1:	%{name}-context.xml
 URL:		http://www.ja-sig.org/products/cas/
-BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.540
 Requires:	jpackage-utils
@@ -30,8 +29,8 @@ CAS provides enterprise single sign on service. It features:
 
 - An open and well-documented protocol
 - An open-source Java server component
-- A library of clients for Java, .Net, PHP, Perl, Apache, uPortal
-  and others
+- A library of clients for Java, .Net, PHP, Perl, Apache, uPortal and
+  others
 - Integrates with uPortal, BlueSocket, TikiWiki, Mule, Liferay, Moodle
   and others
 - Community documentation and implementation support
@@ -39,80 +38,80 @@ CAS provides enterprise single sign on service. It features:
 
 %package authenticator-spnego
 Summary:	Spnego authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-spnego
 Spnego authentication backend for CAS Server.
 
 %package authenticator-x509
 Summary:	x509 authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-x509
 X509 client certificates authentication backend for CAS Server.
 
 %package authenticator-openid
 Summary:	OpenID authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-openid
 OpenID authentication backend for CAS Server.
 
 %package authenticator-legacy
 Summary:	Legacy authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-legacy
 Legacy authentication backend for CAS Server.
 
 %package authenticator-radius
 Summary:	Radius authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-radius
 Radius authentication backend for CAS Server.
 
 %package authenticator-ldap
 Summary:	LDAP authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-ldap
 LDAP authentication backend for CAS Server.
 
 %package authenticator-generic
 Summary:	Generic authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-generic
 Generic authentication backend for CAS Server.
 
 %package authenticator-trusted
 Summary:	Trusted authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-trusted
 Trusted authentication backend for CAS Server.
 
 %package authenticator-jdbc
 Summary:	JDBC authenticator for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description authenticator-jdbc
 JDBC authentication backend for CAS Server.
 
 %package integration-berkeleydb
 Summary:	Berkeleydb ticket registry for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description integration-berkeleydb
 BerkeleyDB integration for CAS Server allows to store ticket registry
@@ -120,8 +119,8 @@ in berkeleyDB.
 
 %package integration-jboss
 Summary:	Jboss ticket registry for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description integration-jboss
 Jboss integration for CAS Server allows to store ticket registry in
@@ -129,17 +128,17 @@ Jboss internal authentication system.
 
 %package integration-memcached
 Summary:	Memory ticket registry for CAS server
-Requires:	%{name} = %{version}-%{release}
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description integration-memcached
 Memcached integration for CAS Server allows to store ticket registry
 in memory cache.
 
 %package integration-restlet
-Summary:	 I have no idea WTF is that, but it is for CAS server
-Requires:	%{name} = %{version}-%{release}
+Summary:	I have no idea WTF is that, but it is for CAS server
 Group:		Libraries/Java
+Requires:	%{name} = %{version}-%{release}
 
 %description integration-restlet
 I really have no idea WTF is that. It name suggests it is yet another
