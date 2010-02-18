@@ -1,3 +1,8 @@
+#
+# TODO:
+# - package all modules (modules/*.war)
+# - subpackages for modules
+# - fix tomcat path
 %include	/usr/lib/rpm/macros.java
 Summary:	JA-SIG Central Authentication Service
 Name:		cas-server
@@ -9,7 +14,6 @@ Source0:	http://www.ja-sig.org/downloads/cas/%{name}-%{version}-release.tar.gz
 # Source0-md5:	c12594a2af98ee2dd11a8c97895d91af
 URL:		http://www.ja-sig.org/products/cas/
 BuildRequires:	jpackage-utils
-BuildRequires:	maven
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 # Require version that uses tomcat uid/gid
@@ -38,13 +42,12 @@ CAS provides enterprise single sign on service: CAS Downloads
 %setup -q
 
 %build
-mvn package install
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir}/cas-server,%{_sharedstatedir}/{cas-server,tomcat/conf/Catalina/localhost}}
-cp -a . $RPM_BUILD_ROOT%{_datadir}/cas-server
-ln -sf %{_sysconfdir}/cas-server/web.xml $RPM_BUILD_ROOT%{_datadir}/tomcat/webapps/cas-server/WEB-INF/web.xml
+install modules/%{name}-webapp-%{version}.war $RPM_BUILD_ROOT%{_datadir}/cas-server/cas.war
+#ln -sf %{_sysconfdir}/cas-server/web.xml $RPM_BUILD_ROOT%{_datadir}/tomcat/webapps/cas-server/WEB-INF/web.xml
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -52,9 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %dir %{_sysconfdir}/cas-server
-%config(noreplace) %{_sysconfdir}/cas-server/web.xml
+#%config(noreplace) %{_sysconfdir}/cas-server/web.xml
 # do not make this file writeable by tomcat. We do not want to allow user to
 # undeploy this app via tomcat manager.
-%config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
+#%config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
 %{_datadir}/cas-server
 %attr(755,tomcat,tomcat) %dir %{_sharedstatedir}/cas-server
