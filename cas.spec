@@ -16,7 +16,7 @@ Source1:	%{name}-context.xml
 URL:		http://www.ja-sig.org/products/cas/
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.300
+BuildRequires:	rpmbuild(macros) >= 1.540
 Requires:	jpackage-utils
 Requires:	tomcat >= 6
 BuildArch:	noarch
@@ -140,7 +140,7 @@ unzip modules/%{name}-webapp-%{version}.war -d webapp
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir},%{_sharedstatedir}/{cas-server,tomcat/conf/Catalina/localhost}}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir},%{_sharedstatedir}/cas-server,%{_tomcatconfdir}}
 
 cp -a webapp $RPM_BUILD_ROOT%{webappdir}
 
@@ -162,14 +162,14 @@ for i in $MODULES; do
   install modules/%{name}-$i-%{version}.jar $RPM_BUILD_ROOT%{libdir}/%{name}-$i-%{version}.jar
 done
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
+install %{SOURCE1} $RPM_BUILD_ROOT%{_tomcatconfdir}/cas-server.xml
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
+%config(noreplace) %{_tomcatconfdir}/cas-server.xml
 %{_datadir}/cas-server
 %exclude %{libdir}/cas-server-support-spnego-3.3.5.jar
 %exclude %{libdir}/cas-server-integration-berkeleydb-3.3.5.jar
