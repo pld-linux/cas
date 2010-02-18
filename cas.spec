@@ -1,8 +1,3 @@
-#
-# TODO:
-# - package all $MODULES
-# - subpackages for modules
-# - fix tomcat path
 %include	/usr/lib/rpm/macros.java
 Summary:	JA-SIG Central Authentication Service
 Name:		cas-server
