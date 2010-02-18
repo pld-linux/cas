@@ -19,6 +19,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define webappdir %{_datadir}/%{name}
 %define libdir    %{_datadir}/%{name}/WEB-INF/lib
+%define	logdir    %{_var}/log/%{name}
 
 %description
 CAS is an authentication system originally created by Yale University
@@ -153,7 +154,7 @@ unzip modules/%{name}-webapp-%{version}.war -d webapp
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir},%{_sharedstatedir}/cas-server,%{_tomcatconfdir}}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/%{name},%{_datadir},%{_sharedstatedir}/%{name},%{_tomcatconfdir},%{logdir}}
 
 cp -a webapp $RPM_BUILD_ROOT%{webappdir}
 
@@ -175,78 +176,83 @@ for i in $MODULES; do
   install modules/%{name}-$i-%{version}.jar $RPM_BUILD_ROOT%{libdir}/%{name}-$i-%{version}.jar
 done
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_tomcatconfdir}/cas-server.xml
+mv $RPM_BUILD_ROOT%{webappdir}/WEB-INF/classes/log4j.properties $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
+ln -s %{_sysconfdir}/%{name}/log4j.properties $RPM_BUILD_ROOT%{webappdir}/WEB-INF/classes/log4j.properties
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_tomcatconfdir}/%{name}.xml
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%config(noreplace) %{_tomcatconfdir}/cas-server.xml
-%{_datadir}/cas-server
-%exclude %{libdir}/cas-server-support-spnego-3.3.5.jar
-%exclude %{libdir}/cas-server-integration-berkeleydb-3.3.5.jar
-%exclude %{libdir}/cas-server-support-x509-3.3.5.jar
-%exclude %{libdir}/cas-server-integration-jboss-3.3.5.jar
-%exclude %{libdir}/cas-server-support-openid-3.3.5.jar
-%exclude %{libdir}/cas-server-support-legacy-3.3.5.jar
-%exclude %{libdir}/cas-server-support-radius-3.3.5.jar
-%exclude %{libdir}/cas-server-integration-memcached-3.3.5.jar
-%exclude %{libdir}/cas-server-integration-restlet-3.3.5.jar
-%exclude %{libdir}/cas-server-support-ldap-3.3.5.jar
-%exclude %{libdir}/cas-server-support-generic-3.3.5.jar
-%exclude %{libdir}/cas-server-support-trusted-3.3.5.jar
-%exclude %{libdir}/cas-server-support-jdbc-3.3.5.jar
-%attr(2755,root,servlet) %dir %{_sharedstatedir}/cas-server
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}
+%config(noreplace) %verify(not md5 mtime size) %{_tomcatconfdir}/%{name}.xml
+%{_datadir}/%{name}
+%exclude %{libdir}/%{name}-support-spnego-3.3.5.jar
+%exclude %{libdir}/%{name}-integration-berkeleydb-3.3.5.jar
+%exclude %{libdir}/%{name}-support-x509-3.3.5.jar
+%exclude %{libdir}/%{name}-integration-jboss-3.3.5.jar
+%exclude %{libdir}/%{name}-support-openid-3.3.5.jar
+%exclude %{libdir}/%{name}-support-legacy-3.3.5.jar
+%exclude %{libdir}/%{name}-support-radius-3.3.5.jar
+%exclude %{libdir}/%{name}-integration-memcached-3.3.5.jar
+%exclude %{libdir}/%{name}-integration-restlet-3.3.5.jar
+%exclude %{libdir}/%{name}-support-ldap-3.3.5.jar
+%exclude %{libdir}/%{name}-support-generic-3.3.5.jar
+%exclude %{libdir}/%{name}-support-trusted-3.3.5.jar
+%exclude %{libdir}/%{name}-support-jdbc-3.3.5.jar
+%attr(2775,root,servlet) %dir %{_sharedstatedir}/%{name}
+%dir %attr(2770,root,servlet) %{logdir}
 
 %files authenticator-spnego
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-spnego-3.3.5.jar
+%{libdir}/%{name}-support-spnego-3.3.5.jar
 
 %files authenticator-x509
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-x509-3.3.5.jar
+%{libdir}/%{name}-support-x509-3.3.5.jar
 
 %files authenticator-openid
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-openid-3.3.5.jar
+%{libdir}/%{name}-support-openid-3.3.5.jar
 
 %files authenticator-legacy
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-legacy-3.3.5.jar
+%{libdir}/%{name}-support-legacy-3.3.5.jar
 
 %files authenticator-radius
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-radius-3.3.5.jar
+%{libdir}/%{name}-support-radius-3.3.5.jar
 
 %files authenticator-ldap
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-ldap-3.3.5.jar
+%{libdir}/%{name}-support-ldap-3.3.5.jar
 
 %files authenticator-generic
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-generic-3.3.5.jar
+%{libdir}/%{name}-support-generic-3.3.5.jar
 
 %files authenticator-trusted
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-trusted-3.3.5.jar
+%{libdir}/%{name}-support-trusted-3.3.5.jar
 
 %files authenticator-jdbc
 %defattr(644,root,root,755)
-%{libdir}/cas-server-support-jdbc-3.3.5.jar
+%{libdir}/%{name}-support-jdbc-3.3.5.jar
 
 %files integration-berkeleydb
 %defattr(644,root,root,755)
-%{libdir}/cas-server-integration-berkeleydb-3.3.5.jar
+%{libdir}/%{name}-integration-berkeleydb-3.3.5.jar
 
 %files integration-jboss
 %defattr(644,root,root,755)
-%{libdir}/cas-server-integration-jboss-3.3.5.jar
+%{libdir}/%{name}-integration-jboss-3.3.5.jar
 
 %files integration-memcached
 %defattr(644,root,root,755)
-%{libdir}/cas-server-integration-memcached-3.3.5.jar
+%{libdir}/%{name}-integration-memcached-3.3.5.jar
 
 %files integration-restlet
 %defattr(644,root,root,755)
-%{libdir}/cas-server-integration-restlet-3.3.5.jar
+%{libdir}/%{name}-integration-restlet-3.3.5.jar
