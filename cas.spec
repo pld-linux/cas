@@ -16,8 +16,7 @@ URL:		http://www.ja-sig.org/products/cas/
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
-# Require version that uses tomcat uid/gid
-Requires:	apache-tomcat >= 5.5.27-0.2
+Requires:	tomcat >= 6
 Requires:	jpackage-utils
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -37,22 +36,6 @@ CAS provides enterprise single sign on service: CAS Downloads
       and others
     - Community documentation and implementation support
     - An extensive community of adopters
-
-%package core
-Summary:	JA-SIG CAS Core
-Group:		Development/Languages/Java
-Requires:	%{name}-%{version} = %{release}
-
-%description core
-JA-SIG CAS Core.
-
-%package webapp
-Summary:	JA-SIG CAS Web Application
-Group:		Applications/WWW
-Requires:	%{name}-%{version} = %{release}
-
-%description webapp
-JA-SIG CAS Web Application.
 
 %prep
 %setup -q
@@ -83,12 +66,6 @@ rm -rf $RPM_BUILD_ROOT
 # do not make this file writeable by tomcat. We do not want to allow user to
 # undeploy this app via tomcat manager.
 #%config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
-
-%files core
-%defattr(644,root,root,755)
-%{_datadir}/cas-server/cas-core.jar
-
-%files webapp
-%defattr(644,root,root,755)
+%dir %{_datadir}/cas-server
 %{_datadir}/cas-server/cas.war
-%attr(755,tomcat,tomcat) %dir %{_sharedstatedir}/cas-server
+%attr(2755,root,servlet) %dir %{_sharedstatedir}/cas-server
