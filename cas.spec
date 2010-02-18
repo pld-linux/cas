@@ -38,6 +38,14 @@ CAS provides enterprise single sign on service: CAS Downloads
     - Community documentation and implementation support
     - An extensive community of adopters
 
+%package webapp
+Summary:	JA-SIG CAS Web Application
+Group:		Applications/WWW
+Requires:	%{name}-%{version} = %{release}
+
+%description webapp
+JA-SIG CAS Web Application
+
 %prep
 %setup -q
 
@@ -59,5 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 # do not make this file writeable by tomcat. We do not want to allow user to
 # undeploy this app via tomcat manager.
 #%config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
-%{_datadir}/cas-server
+%files webapp
+%defattr(644,root,root,755)
+%{_datadir}/cas-server/cas.war
 %attr(755,tomcat,tomcat) %dir %{_sharedstatedir}/cas-server
