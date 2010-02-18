@@ -12,6 +12,7 @@ License:	MIT License
 Group:		Development/Languages/Java
 Source0:	http://www.ja-sig.org/downloads/cas/%{name}-%{version}-release.tar.gz
 # Source0-md5:	c12594a2af98ee2dd11a8c97895d91af
+Source1:	%{name}-context.xml
 URL:		http://www.ja-sig.org/products/cas/
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
@@ -39,12 +40,13 @@ CAS provides enterprise single sign on service: CAS Downloads
 
 %prep
 %setup -q
+unzip modules/%{name}-webapp-%{version}.war -d webapp
 
 %build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir}/cas-server,%{_sharedstatedir}/{cas-server,tomcat/conf/Catalina/localhost}}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/cas-server,%{_datadir},%{_sharedstatedir}/{cas-server,tomcat/conf/Catalina/localhost}}
 
 MODULES="core integration-berkeleydb integration-jboss integration-memcached integration-restlet support-generic support-jdbc support-ldap support-legacy support-openid support-radius support-spnego support-trusted support-x509"
 
@@ -54,7 +56,7 @@ for i in $MODULES; do
 #ln -sf %{_sysconfdir}/cas-server/web.xml $RPM_BUILD_ROOT%{_datadir}/tomcat/webapps/cas-server/WEB-INF/web.xml
 done
 
-install modules/%{name}-webapp-%{version}.war $RPM_BUILD_ROOT%{_datadir}/cas-server/cas.war
+cp -a webapp $RPM_BUILD_ROOT%{_datadir}/cas-server
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,7 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 #%config(noreplace) %{_sysconfdir}/cas-server/web.xml
 # do not make this file writeable by tomcat. We do not want to allow user to
 # undeploy this app via tomcat manager.
-#%config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
+%config(noreplace) %{_sharedstatedir}/tomcat/conf/Catalina/localhost/cas-server.xml
 %dir %{_datadir}/cas-server
 %{_datadir}/cas-server/cas.war
 %attr(2755,root,servlet) %dir %{_sharedstatedir}/cas-server
