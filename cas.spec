@@ -1,11 +1,11 @@
 %include	/usr/lib/rpm/macros.java
 Summary:	JA-SIG Central Authentication Service
-Name:		cas-server
+Name:		cas
 Version:	3.3.5
 Release:	0.1
 License:	MIT License
 Group:		Networking/Daemons/Java/Servlets
-Source0:	http://www.ja-sig.org/downloads/cas/%{name}-%{version}-release.tar.gz
+Source0:	http://www.ja-sig.org/downloads/cas/%{name}-server-%{version}-release.tar.gz
 # Source0-md5:	c12594a2af98ee2dd11a8c97895d91af
 Source1:	%{name}-context.xml
 URL:		http://www.ja-sig.org/products/cas/
@@ -146,8 +146,8 @@ registry storage driver for CAS, but it does not extends
 AbstractDistributedTicketRegistry class.
 
 %prep
-%setup -q
-unzip modules/%{name}-webapp-%{version}.war -d webapp
+%setup -q -n %{name}-server-%{version}
+unzip modules/%{name}-server-webapp-%{version}.war -d webapp
 
 sed -i 's,^\(log4j.appender.logfile.File=\)cas.log$,\1%{logdir}/%{name}.log,' webapp/WEB-INF/classes/log4j.properties
 
@@ -174,7 +174,7 @@ support-trusted
 support-x509"
 
 for i in $MODULES; do
-  install modules/%{name}-$i-%{version}.jar $RPM_BUILD_ROOT%{libdir}/%{name}-$i-%{version}.jar
+  install modules/%{name}-server-$i-%{version}.jar $RPM_BUILD_ROOT%{libdir}/%{name}-$i-%{version}.jar
 done
 
 mv $RPM_BUILD_ROOT%{webappdir}/WEB-INF/classes/log4j.properties $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
