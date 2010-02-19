@@ -149,6 +149,8 @@ AbstractDistributedTicketRegistry class.
 %setup -q -n %{name}-server-%{version}
 unzip modules/%{name}-server-webapp-%{version}.war -d webapp
 
+rm webapp/WEB-INF/lib/cas-server-support-ldap-3.3.5.jar
+
 sed -i 's,^\(log4j.appender.logfile.File=\)cas.log$,\1%{logdir}/%{name}.log,' webapp/WEB-INF/classes/log4j.properties
 
 %build
