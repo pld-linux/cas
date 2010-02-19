@@ -159,28 +159,43 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir}/%{name},%{_datadir},%{_sharedstatedir}
 
 cp -a webapp $RPM_BUILD_ROOT%{webappdir}
 
-MODULES="integration-berkeleydb
-integration-jboss
-integration-memcached
-integration-restlet
-support-generic
-support-jdbc
-support-ldap
-support-legacy
-support-openid
-support-radius
-support-spnego
-support-trusted
-support-x509"
+MODULES="
+  integration-berkeleydb
+  integration-jboss
+  integration-memcached
+  integration-restlet
+  support-generic
+  support-jdbc
+  support-ldap
+  support-legacy
+  support-openid
+  support-radius
+  support-spnego
+  support-trusted
+  support-x509
+"
+
+CONFIGFILES="
+  classes/log4j.properties
+  cas.properties
+  deployerConfigContext.xml
+  login-webflow.xml
+  restlet-servlet.xml
+  cas-servlet.xml
+  web.xml
+"
 
 for i in $MODULES; do
   install modules/%{name}-server-$i-%{version}.jar $RPM_BUILD_ROOT%{libdir}/%{name}-$i-%{version}.jar
 done
 
-mv $RPM_BUILD_ROOT%{webappdir}/WEB-INF/classes/log4j.properties $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
-ln -s %{_sysconfdir}/%{name}/log4j.properties $RPM_BUILD_ROOT%{webappdir}/WEB-INF/classes/log4j.properties
+for i in $CONFIGFILES; do
+  mv $RPM_BUILD_ROOT%{webappdir}/WEB-INF/$i $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$(basename i)
+  ln -s %{_sysconfdir}/%{name}/$(basename $i) $RPM_BUILD_ROOT%{webappdir}/WEB-INF/$i
+done
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_tomcatconfdir}/%{name}.xml
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/context.xml
+ln -s %{_sysconfdir}/%{name}/context.xml $RPM_BUILD_ROOT%{_tomcatconfdir}/%{name}.xml
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -188,7 +203,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}
-%config(noreplace) %verify(not md5 mtime size) %{_tomcatconfdir}/%{name}.xml
+%{_tomcatconfdir}/%{name}.xml
 %{_datadir}/%{name}
 %exclude %{libdir}/%{name}-support-spnego-%{version}.jar
 %exclude %{libdir}/%{name}-integration-berkeleydb-%{version}.jar
