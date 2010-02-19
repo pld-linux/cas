@@ -2,7 +2,7 @@
 Summary:	JA-SIG Central Authentication Service
 Name:		cas
 Version:	3.3.5
-Release:	0.1
+Release:	0.2
 License:	MIT License
 Group:		Networking/Daemons/Java/Servlets
 Source0:	http://www.ja-sig.org/downloads/cas/%{name}-server-%{version}-release.tar.gz
@@ -190,7 +190,7 @@ for i in $MODULES; do
 done
 
 for i in $CONFIGFILES; do
-  mv $RPM_BUILD_ROOT%{webappdir}/WEB-INF/$i $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$(basename i)
+  mv $RPM_BUILD_ROOT%{webappdir}/WEB-INF/$i $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/$(basename $i)
   ln -s %{_sysconfdir}/%{name}/$(basename $i) $RPM_BUILD_ROOT%{webappdir}/WEB-INF/$i
 done
 
