@@ -2,7 +2,7 @@
 Summary:	JA-SIG Central Authentication Service
 Name:		cas
 Version:	3.3.5
-Release:	0.2
+Release:	0.3
 License:	MIT License
 Group:		Networking/Daemons/Java/Servlets
 Source0:	http://www.ja-sig.org/downloads/cas/%{name}-server-%{version}-release.tar.gz
@@ -149,7 +149,7 @@ AbstractDistributedTicketRegistry class.
 %setup -q -n %{name}-server-%{version}
 unzip modules/%{name}-server-webapp-%{version}.war -d webapp
 
-rm webapp/WEB-INF/lib/cas-server-support-ldap-3.3.5.jar
+rm webapp/WEB-INF/lib/%{name}-server-support-ldap-%{version}.jar
 
 sed -i 's,^\(log4j.appender.logfile.File=\)cas.log$,\1%{logdir}/%{name}.log,' webapp/WEB-INF/classes/log4j.properties
 
