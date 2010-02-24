@@ -2,7 +2,7 @@
 Summary:	JA-SIG Central Authentication Service
 Name:		cas
 Version:	3.3.5
-Release:	0.3
+Release:	0.4
 License:	MIT License
 Group:		Networking/Daemons/Java/Servlets
 Source0:	http://www.ja-sig.org/downloads/cas/%{name}-server-%{version}-release.tar.gz
@@ -10,7 +10,7 @@ Source0:	http://www.ja-sig.org/downloads/cas/%{name}-server-%{version}-release.t
 Source1:	%{name}-context.xml
 URL:		http://www.ja-sig.org/products/cas/
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.540
+BuildRequires:	rpmbuild(macros) >= 1.546
 Requires:	jpackage-utils
 Requires:	tomcat >= 6
 BuildArch:	noarch
@@ -196,8 +196,11 @@ for i in $CONFIGFILES; do
   ln -s %{_sysconfdir}/%{name}/$(basename $i) $RPM_BUILD_ROOT%{webappdir}/WEB-INF/$i
 done
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/context.xml
-ln -s %{_sysconfdir}/%{name}/context.xml $RPM_BUILD_ROOT%{_tomcatconfdir}/%{name}.xml
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/tomcat-context.xml
+ln -sf %{_sysconfdir}/%{name}/tomcat-context.xml $RPM_BUILD_ROOT%{_tomcatconfdir}/%{name}.xml
+
+%postun
+%tomcat_clear_cache %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
