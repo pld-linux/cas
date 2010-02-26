@@ -2,7 +2,7 @@
 Summary:	JA-SIG Central Authentication Service
 Name:		cas
 Version:	3.3.5
-Release:	0.4
+Release:	1
 License:	MIT License
 Group:		Networking/Daemons/Java/Servlets
 Source0:	http://www.ja-sig.org/downloads/cas/%{name}-server-%{version}-release.tar.gz
