@@ -207,7 +207,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*.xml
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/*.properties
 %{_tomcatconfdir}/%{name}.xml
 %{_datadir}/%{name}
 %exclude %{libdir}/%{name}-support-spnego-%{version}.jar
