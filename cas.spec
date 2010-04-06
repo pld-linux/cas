@@ -1,12 +1,12 @@
 %include	/usr/lib/rpm/macros.java
 Summary:	JA-SIG Central Authentication Service
 Name:		cas
-Version:	3.3.5
+Version:	3.4.2
 Release:	1
 License:	MIT License
 Group:		Networking/Daemons/Java/Servlets
 Source0:	http://www.ja-sig.org/downloads/cas/%{name}-server-%{version}-release.tar.gz
-# Source0-md5:	c12594a2af98ee2dd11a8c97895d91af
+# Source0-md5:	3a7dfd70be008053b8619509dcc45be9
 Source1:	%{name}-context.xml
 URL:		http://www.ja-sig.org/products/cas/
 BuildRequires:	rpm-javaprov
@@ -149,9 +149,7 @@ AbstractDistributedTicketRegistry class.
 %setup -q -n %{name}-server-%{version}
 unzip modules/%{name}-server-webapp-%{version}.war -d webapp
 
-rm webapp/WEB-INF/lib/%{name}-server-support-ldap-%{version}.jar
-
-sed -i 's,^\(log4j.appender.logfile.File=\)cas.log$,\1%{logdir}/%{name}.log,' webapp/WEB-INF/classes/log4j.properties
+sed -i 's,^\(log4j.appender.logfile.File=\)cas.log$,\1%{logdir}/%{name}.log,' webapp/WEB-INF/classes/log4j.xml
 
 %build
 
@@ -178,7 +176,7 @@ MODULES="
 "
 
 CONFIGFILES="
-  classes/log4j.properties
+  classes/log4j.xml
   cas.properties
   deployerConfigContext.xml
   login-webflow.xml
