@@ -149,7 +149,7 @@ AbstractDistributedTicketRegistry class.
 %setup -q -n %{name}-server-%{version}
 unzip modules/%{name}-server-webapp-%{version}.war -d webapp
 
-sed -i 's,^\(log4j.appender.logfile.File=\)cas.log$,\1%{logdir}/%{name}.log,' webapp/WEB-INF/classes/log4j.xml
+sed -i 's,\(name="File" value="\)\([^"]*"\),\1%{logdir}/\2,' webapp/WEB-INF/classes/log4j.xml
 
 %build
 
