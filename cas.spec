@@ -1,4 +1,3 @@
-%include	/usr/lib/rpm/macros.java
 Summary:	JA-SIG Central Authentication Service
 Name:		cas
 Version:	3.4.2
